@@ -1,0 +1,37 @@
+[user]
+    name = Ben Goldberg
+    email = ben.goldberg@ox.security
+    useConfigOnly = true
+
+[core]
+    autocrlf = true
+    safecrlf = false
+    editor = code
+    whitespace = cr-at-eol
+    excludesfile = .gitignore
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = auto
+
+[pull]
+    rebase = false
+
+[push]
+    default = simple
+
+[includeIf "gitdir:"]
+    path = .gitconfig.local
+
+[include]
+    path = .gitconfig.local
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    df = diff
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit 

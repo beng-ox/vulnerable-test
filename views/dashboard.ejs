@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Vulnerable App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .note-form {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .tools {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, <%= username %></h2>
+        
+        <div class="note-form">
+            <h3>Add New Note</h3>
+            <form action="/notes" method="POST">
+                <textarea name="content" placeholder="Enter your note here..."></textarea>
+                <button type="submit">Save Note</button>
+            </form>
+        </div>
+
+        <div class="tools">
+            <h3>Network Tools</h3>
+            <form action="/ping" method="POST">
+                <input type="text" name="host" placeholder="Enter hostname to ping">
+                <button type="submit">Ping Host</button>
+            </form>
+        </div>
+
+        <p><a href="/debug">View Debug Information</a></p>
+    </div>
+</body>
+</html> 
