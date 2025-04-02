@@ -14,6 +14,35 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 
+// Vulnerable to prototype pollution (CVE-2023-26136)
+app.use((req, res, next) => {
+  const params = req.query;
+  const obj = {};
+  
+  // Vulnerable merging of query parameters
+  for (let key in params) {
+    let value = params[key];
+    let target = obj;
+    let parts = key.split('.');
+    let last = parts.pop();
+    
+    parts.forEach(part => {
+      target = target[part] = target[part] || {};
+    });
+    
+    target[last] = value;
+  }
+  
+  req.pollutableObject = obj;
+  next();
+});
+
+// Route that uses the pollutable object
+app.get('/vulnerable-endpoint', (req, res) => {
+  const userInput = req.pollutableObject;
+  res.json(userInput);
+});
+
 // Database setup
 db.serialize(() => {
   db.run("CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
